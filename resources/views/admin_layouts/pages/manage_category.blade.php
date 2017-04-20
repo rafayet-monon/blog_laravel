@@ -21,6 +21,15 @@
             </div>
         </div>
         <div class="box-content">
+            <h3 style="color: green">
+                <?php
+                $message=Session::get('message');
+                if($message){
+                    echo $message;
+                    Session::put('message',null);
+                }
+                ?>
+            </h3>
             <table class="table table-striped table-bordered bootstrap-datatable datatable">
                 <thead>
                 <tr>

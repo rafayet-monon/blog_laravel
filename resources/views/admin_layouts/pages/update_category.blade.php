@@ -26,8 +26,15 @@
             </div>
 
             <div class="box-content">
-                {!! Form::open(['url' => '/edit_category','name'=>'update_category']) !!}
+                {!! Form::open(['url' => '/edit_category']) !!}
                 <fieldset>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="hidden" class="span6 typeahead" id="typeahead"  data-provide="typeahead" data-items="4" name="category_id" value="<?php echo $all_category_info->category_id?>" >
+                        </div>
+                    </div>
+
                     <div class="control-group">
                         <label class="control-label" for="typeahead">Category Name </label>
                         <div class="controls">
@@ -35,21 +42,14 @@
                         </div>
                     </div>
 
+
                     <div class="control-group hidden-phone">
                         <label class="control-label" for="textarea2">Category Description</label>
                         <div class="controls">
-                            <textarea class="cleditor" id="textarea2" rows="3" name="category_description" value="<?php echo $all_category_info->category_description;?>"></textarea>
+                            <textarea class="cleditor" id="textarea2" rows="3" name="category_description"><?php echo $all_category_info->category_description;?></textarea>
                         </div>
                     </div>
-                    <div class="control-group">
-                        <label class="control-label" for="selectError">Publication Status</label>
-                        <div class="controls">
-                            <select id="selectError" data-rel="chosen" name="publication_status" value="<?php echo $all_category_info->publication_status?>">
-                                <option value="1">Publish</option>
-                                <option value="0">Unpublish</option>
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="form-actions">
                         <button type="submit" class="btn btn-primary">Update</button>
                         <button type="reset" class="btn">Cancel</button>
