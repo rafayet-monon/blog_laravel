@@ -8,38 +8,30 @@
         <input type="submit" value="">
     </form>
 </div>
+
+<?php
+    $recent_blog =DB::table('tbl_blog')
+                ->orderBy('blog_id','desc')
+                ->where('publication_status',1)
+                ->take(4)
+                ->get();
+?>
+
+
 <h3>Recent Posts</h3>
 <div class="blo-top">
+    @foreach($recent_blog as $r_blog)
     <div class="blog-grids">
         <div class="blog-grid-left">
-            <a href="single.html"><img src="{{asset('images/1b.jpg')}}" class="img-responsive" alt=""></a>
+            <a href="{{ URL::to('/blog_details/'.$r_blog->blog_id) }}"><img src="{{URL::to($r_blog->blog_image)}}" class="img-responsive" alt=""></a>
         </div>
         <div class="blog-grid-right">
-            <h4><a href="single.html">Little Invaders </a></h4>
-            <p>pellentesque dui, non felis. Maecenas male </p>
+            <h4><a href="{{URL::to('/blog_details/'.$r_blog->blog_id)}}">{{$r_blog->blog_title}}</a></h4>
+
         </div>
         <div class="clearfix"> </div>
     </div>
-    <div class="blog-grids">
-        <div class="blog-grid-left">
-            <a href="single.html"><img src="{{asset('images/2b.jpg')}}" class="img-responsive" alt=""></a>
-        </div>
-        <div class="blog-grid-right">
-            <h4><a href="single.html">Little Invaders </a></h4>
-            <p>pellentesque dui, non felis. Maecenas male </p>
-        </div>
-        <div class="clearfix"> </div>
-    </div>
-    <div class="blog-grids">
-        <div class="blog-grid-left">
-            <a href=""><img src="{{asset('images/3b.jpg')}}" class="img-responsive" alt=""></a>
-        </div>
-        <div class="blog-grid-right">
-            <h4><a href="single.html">Little Invaders </a></h4>
-            <p>pellentesque dui, non felis. Maecenas male </p>
-        </div>
-        <div class="clearfix"> </div>
-    </div>
+        @endforeach
 </div>
 <h3>Categories</h3>
 

@@ -1,18 +1,19 @@
 @extends('app')
 @section('content')
 
+    @foreach($all_published_blog as $v_blog)
                 <div class="blog-artical">
                     <div class="blog-artical-info">
                         <div class="blog-artical-info-img">
-                            <a href="single.html"><img src="images/7.jpg" title="post-name"></a>
+                            <a href="{{URL::to('/blog_details/'.$v_blog->blog_id)}}"><img src="{{URL::to($v_blog->blog_image)}}" title="{{$v_blog->blog_title}}" height="450" width="150"></a>
                         </div>
                         <div class="blog-artical-info-head">
-                            <h2><a href="single.html">Printing and typesetting industry</a></h2>
-                            <h6>Posted on, 12 July 2014 at 10.30am by <a href="#"> admin</a></h6>
+                            <h2><a href="{{URL::to('/blog_details/'.$v_blog->blog_id)}}">{{$v_blog->blog_title}}</a></h2>
+                            <h5>Posted on, 12 July 2014 at 10.30am by <a href="#"> admin</a> | Category : {{$v_blog->category_name}}</h5>
 
                         </div>
                         <div class="blog-artical-info-text">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum dummy text of the printing and typesetting industry. Lorem Ipsum dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy has been the industry's standard dummy has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.<a href="#">[...]</a></p>
+                            <p><?php echo $v_blog->blog_short_description ?><a href="{{URL::to('/blog_details/'.$v_blog->blog_id)}}">[Read More]</a></p>
                         </div>
                         <div class="artical-links">
                             <ul>
@@ -27,5 +28,5 @@
                     <div class="clearfix"> </div>
                 </div>
 
-
+        @endforeach
     @endsection

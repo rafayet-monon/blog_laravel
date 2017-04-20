@@ -25,8 +25,16 @@ class WelcomeController extends Controller
     }
     public function blog()
     {
-        $blog_content=view('layouts.blog');
-        $side_bar_content=view('layouts.side_bar');
+        $published_blog=DB::table('tbl_blog')
+            ->join('tbl_category','tbl_blog.category_id','=','tbl_category.category_id')
+            ->where('tbl_blog.publication_status',1)
+            ->select('tbl_blog.*','tbl_category.category_name')
+            ->get();
+        $published_category=DB::table('tbl_category')
+                ->where('publication_status',1)
+                ->get();
+        $blog_content=view('layouts.blog')->with('all_published_blog',$published_blog);
+        $side_bar_content=view('layouts.side_bar')->with('all_published_category',$published_category);
         return view('app')->with('content',$blog_content)->with('side_bar',$side_bar_content);
     }
     public function about()
@@ -45,69 +53,18 @@ class WelcomeController extends Controller
         return view('app')->with('content',$contact_content);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   public function blog_details($blog_id)
+   {
+       $blog_details=DB::table('tbl_blog')
+           ->join('tbl_category','tbl_blog.category_id','=','tbl_category.category_id')
+           ->where('tbl_blog.blog_id',$blog_id)
+           ->select('tbl_blog.*','tbl_category.category_name')
+           ->first();
+       $published_category=DB::table('tbl_category')
+           ->where('publication_status',1)
+           ->get();
+       $blog_details_content=view('layouts.blog_details')->with('details_blog',$blog_details);
+       $side_bar_content=view('layouts.side_bar')->with('all_published_category',$published_category);
+       return view('app')->with('content',$blog_details_content)->with('side_bar',$side_bar_content);
+   }
 }
