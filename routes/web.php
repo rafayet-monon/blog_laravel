@@ -57,3 +57,7 @@ Route::get('/blog_details/{blog_id}','WelcomeController@blog_details');
 //blog ends
 /*super admin ends*/
 
+
+Auth::routes();
+Route::get('/home', 'WelcomeController@index');
+Route::get('/user_dashboard', 'WelcomeController@user_dashboard');

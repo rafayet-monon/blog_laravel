@@ -55,6 +55,15 @@ class WelcomeController extends Controller
 
    public function blog_details($blog_id)
    {
+       $blog_info=DB::table('tbl_blog')
+                ->where('blog_id',$blog_id)
+                ->first();
+       $data=array();
+       $data['hit_count']=$blog_info->hit_count+1;
+       DB::table('tbl_blog')
+            ->where('blog_id',$blog_id)
+            ->update($data );
+
        $blog_details=DB::table('tbl_blog')
            ->join('tbl_category','tbl_blog.category_id','=','tbl_category.category_id')
            ->where('tbl_blog.blog_id',$blog_id)
@@ -67,4 +76,10 @@ class WelcomeController extends Controller
        $side_bar_content=view('layouts.side_bar')->with('all_published_category',$published_category);
        return view('app')->with('content',$blog_details_content)->with('side_bar',$side_bar_content);
    }
+
+    public function user_dashboard()
+    {
+        $user_dashboard_content=view('layouts.user_dashboard');
+        return view('app')->with('content',$user_dashboard_content);
+    }
 }
