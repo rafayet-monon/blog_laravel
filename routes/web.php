@@ -54,6 +54,8 @@ Route::get('/unpublish_blog/{blog_id}','SuperAdminController@unpublish_blog');
 Route::get('/publish_blog/{blog_id}','SuperAdminController@publish_blog');
 Route::get('/delete_blog/{blog_id}','SuperAdminController@delete_blog');
 Route::get('/blog_details/{blog_id}','WelcomeController@blog_details');
+Route::get('/edit_blog/{blog_id}','SuperAdminController@edit_blog');
+Route::post('/update_blog','SuperAdminController@update_blog');
 //blog ends
 /*super admin ends*/
 
@@ -61,3 +63,10 @@ Route::get('/blog_details/{blog_id}','WelcomeController@blog_details');
 Auth::routes();
 Route::get('/home', 'WelcomeController@index');
 Route::get('/user_dashboard', 'WelcomeController@user_dashboard');
+
+
+Route::post('/save_comment','WelcomeController@save_comment');
+Route::get('/manage_comment','SuperAdminController@manage_comment');
+Route::get('/unpublish_comment/{comment_id}','SuperAdminController@unpublish_comment');
+Route::get('/publish_comment/{comment_id}','SuperAdminController@publish_comment');
+Route::get('/delete_comment/{comment_id}','SuperAdminController@delete_comment');

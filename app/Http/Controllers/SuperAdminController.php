@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 session_start();
 class SuperAdminController extends Controller
 {
@@ -113,6 +114,8 @@ class SuperAdminController extends Controller
         return Redirect::to('/manage_category');
     }
 
+
+
     /*Category section ends*/
 
     /*Blog section starts*/
@@ -193,6 +196,91 @@ class SuperAdminController extends Controller
         return Redirect::to('/manage_blog');
     }
 
+    public function edit_blog($blog_id)
+    {
+        $category_info=DB::table('tbl_category')
+            ->where('publication_status',1)
+            ->get();
+        $blog_info=DB::table('tbl_blog')
+            ->where('blog_id',$blog_id)
+            ->first();
+        $edit_blog_content=view('admin_layouts.pages.edit_blog')
+                            ->with('blog_info',$blog_info)
+                            ->with('all_category_info',$category_info);
+        return view('admin_layouts.admin_master')->with('admin_content',$edit_blog_content);
+    }
+
+    public function update_blog(Request $request)
+    {
+
+        $data=array();
+        $blog_id=$request->blog_id;
+        $data['blog_title']=$request->blog_title;
+        $data['category_id']=$request->category_id;
+        $data['blog_short_description']=$request->blog_short_description;
+        $data['blog_long_description']=$request->blog_long_description;
+
+        $image=$request->file('blog_image');
+        if($image){
+            $image_name=str_random(20);
+            $text=strtolower($image->getClientOriginalExtension());
+            $image_full_name=$image_name.'.'.$text;
+            $upload_path='blog_image/';
+            $image_url=$upload_path.$image_full_name;
+            $success=$image->move($upload_path,$image_full_name);
+            if($success){
+                $data['blog_image']=$image_url;
+                DB::table('tbl_blog')
+                    ->where('blog_id',$blog_id)
+                    ->update($data);
+            }
+        }
+        else{
+            DB::table('tbl_blog')
+                ->where('blog_id',$blog_id)
+                ->update($data);
+
+        }
+
+        Session::put('message','Blog Updated');
+       return Redirect::to('/manage_blog');
+    }
     /*Blog section ends*/
+
+    /*Comment ssection starts*/
+
+    public function manage_comment()
+    {
+        $comment_info=DB::table('tbl_comments')->get();
+        $manage_comment_content=view('admin_layouts.pages.manage_comments')->with('all_comment_info',$comment_info);
+        return view('admin_layouts.admin_master')->with('admin_content',$manage_comment_content);
+
+    }
+
+    public function unpublish_comment($comment_id)
+    {
+        DB::table('tbl_comments')
+            ->where('comment_id',$comment_id)
+            ->update(['publication_status'=>0]);
+        return Redirect::to('/manage_comment');
+    }
+
+    public function publish_comment($comment_id)
+    {
+        DB::table('tbl_comments')
+            ->where('comment_id',$comment_id)
+            ->update(['publication_status'=>1]);
+        return Redirect::to('/manage_comment');
+    }
+
+    public function delete_comment($comment_id)
+    {
+        DB::table('tbl_comments')
+            ->where('comment_id',$comment_id)
+            ->delete();
+        return Redirect::to('/manage_comment');
+    }
+
+    /*Comment ssection ends*/
 
 }

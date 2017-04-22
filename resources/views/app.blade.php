@@ -17,8 +17,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville:400,700' rel='stylesheet' type='text/css'>
+    <link href="{{asset('admin_asset/css/bootstrap-responsive.min.css')}}" rel="stylesheet">
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/responsiveslides.min.js')}}"></script>
+    <script src="{{asset('admin_asset/js/jquery.cleditor.min.js')}}"></script>
     <script>
         $(function () {
             $("#slider").responsiveSlides({
