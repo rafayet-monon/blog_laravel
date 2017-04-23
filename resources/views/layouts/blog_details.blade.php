@@ -2,8 +2,8 @@
 @section('content')
 
 
-        <div class="blog-artical">
-            <div class="blog-artical-info">
+        <div class="blog-artical" style="background-color: whitesmoke;">
+            <div class="blog-artical-info" style="margin-left: 25px; margin-right: 25px; margin-top: 25px; margin-bottom: 25px" >
                 <div class="blog-artical-info-img">
                     <img src="{{URL::to($details_blog->blog_image)}}" title="{{$details_blog->blog_title}}" height="500" width="150">
                 </div>
@@ -23,8 +23,6 @@
                         <li><small> </small><span>june 14, 2013</span></li>
                         <li><a href="#"><small class="admin"> </small><span>admin</span></a></li>
                         <li><a href="#"><small class="no"> </small><span>No comments</span></a></li>
-                        <li><a href="#"><small class="posts"> </small><span>View posts</span></a></li>
-                        <li><a href="#"><small class="link"> </small><span>permalink</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -73,7 +71,7 @@
         <?php
         foreach ($published_comments as $p_comments){
         ?>
-        <div class="blo-top">
+        <div class="blo-top" style="background-color: #FFFFFF">
             <p3>Comment by : <?php echo $p_comments->name ?></p3>
             <li style="margin-top: 20px; margin-bottom: 10px">Comment : <?php echo $p_comments->comments ?> </li>
     </div>

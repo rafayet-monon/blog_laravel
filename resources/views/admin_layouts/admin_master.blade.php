@@ -114,7 +114,8 @@
                     <li><a href="{{URL::to('/add_category')}}"><i class="icon-tasks"></i><span class="hidden-tablet"> Add Category</span></a></li>
                     <li><a href="{{URL::to('/manage_category')}}"><i class="icon-align-justify"></i><span class="hidden-tablet"> Manage Category</span></a></li>
                     <li><a href="{{URL::to('/add_blog')}}"><i class="icon-pencil"></i><span class="hidden-tablet"> Write Blog</span></a></li>
-                    <li><a href="{{URL::to('/manage_blog')}}"><i class="icon-edit"></i><span class="hidden-tablet"> Edit Blog</span></a></li>
+                    <li><a href="{{URL::to('/manage_admin_blog')}}"><i class="icon-edit"></i><span class="hidden-tablet"> Manage Admin Blog</span></a></li>
+                    <li><a href="{{URL::to('/manage_user_blog')}}"><i class="icon-edit"></i><span class="hidden-tablet"> Manage User Blog</span></a></li>
                     <li><a href="{{URL::to('/manage_comment')}}"><i class="icon-comments-alt"></i><span class="hidden-tablet"> Manage Comments</span></a></li>
 
                 </ul>

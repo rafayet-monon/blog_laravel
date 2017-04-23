@@ -2,9 +2,9 @@
 @section('content')
 
     @foreach($all_published_blog as $v_blog)
-                <div class="blog-artical">
-                    <div class="blog-artical-info">
-                        <div class="blog-artical-info-img">
+                <div class="blog-artical" style="background-color: whitesmoke">
+                    <div class="blog-artical-info" style="margin-left: 25px; margin-right: 25px; margin-top: 25px; margin-bottom: 25px" >
+                        <div class="blog-artical-info-img" style="margin-top: 25px;">
                             <a href="{{URL::to('/blog_details/'.$v_blog->blog_id)}}"><img src="{{URL::to($v_blog->blog_image)}}" title="{{$v_blog->blog_title}}" height="450" width="150"></a>
                         </div>
                         <div class="blog-artical-info-head">
@@ -20,8 +20,6 @@
                                 <li><small> </small><span>june 14, 2013</span></li>
                                 <li><a href="#"><small class="admin"> </small><span>admin</span></a></li>
                                 <li><a href="#"><small class="no"> </small><span>No comments</span></a></li>
-                                <li><a href="#"><small class="posts"> </small><span>View posts</span></a></li>
-                                <li><a href="#"><small class="link"> </small><span>permalink</span></a></li>
                             </ul>
                         </div>
                     </div>

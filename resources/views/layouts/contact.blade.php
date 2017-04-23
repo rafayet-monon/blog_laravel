@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-
+    <div class="container" style="background-color: whitesmoke">
 <div class="contact">
     <div class="main-head-section">
 
@@ -47,4 +47,5 @@
 
     </div>
 </div>
+    </div>
     @endsection

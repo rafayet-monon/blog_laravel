@@ -19,7 +19,7 @@
 
 
 <h3>Recent Posts</h3>
-<div class="blo-top">
+<div class="blo-top" style="background-color: whitesmoke">
     @foreach($recent_blog as $r_blog)
     <div class="blog-grids">
         <div class="blog-grid-left">
@@ -35,12 +35,12 @@
 </div>
 <h3>Categories</h3>
 
-<div class="blo-top">
+<div class="blo-top" style="background-color: whitesmoke">
     <?php
     foreach ($all_published_category as $v_category){
     ?>
 
-    <li><a href="#"><?php echo $v_category->category_name ?></a></li>
+    <li><a href="{{URL::to('/blog_by_category/'.$v_category->category_id)}}"><?php echo $v_category->category_name ?></a></li>
 
     <?php
         }
@@ -49,7 +49,7 @@
 
 <h3>Newsletter</h3>
 
-<div class="blo-top">
+<div class="blo-top" style="background-color: whitesmoke">
     <div class="name">
         <form>
             <input type="text" placeholder="email" required="">

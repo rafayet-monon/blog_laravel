@@ -1,5 +1,7 @@
 @extends('app')
 @section('content')
+
+    <div class="container" style="background-color: whitesmoke">
 <div class="service-top">
     <h3 class="m_3">Services</h3>
     <div class="service_grid1">
@@ -52,4 +54,5 @@
 
     </div>
 </div>
+    </div>
     @endsection

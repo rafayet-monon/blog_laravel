@@ -1,29 +1,11 @@
-@extends('admin_layouts.admin_master')
-@section('admin_content')
+@extends('layouts.user_master')
+@section('user_content')
 
 
-    <ul class="breadcrumb">
-        <li>
-            <i class="icon-home"></i>
-            <a href="index.html">Home</a>
-            <i class="icon-angle-right"></i>
-        </li>
-        <li>
-            <i class="icon-edit"></i>
-            <a href="#">Edit Blog</a>
-        </li>
-    </ul>
 
     <div class="row-fluid sortable">
         <div class="box span12">
-            <div class="box-header" data-original-title>
-                <h2><i class="halflings-icon white edit"></i><span class="break"></span>Edit Blog</h2>
-                <div class="box-icon">
-                    <a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
-                    <a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
-                    <a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
-                </div>
-            </div>
+
             <h3 style="color: green">
                 <?php
                 $message=Session::get('message');
@@ -34,7 +16,7 @@
                 ?>
             </h3>
             <div class="box-content">
-                {!! Form::open(['url' => '/update_blog','enctype'=>'multipart/form-data']) !!}
+                {!! Form::open(['url' => '/update_user_blog','enctype'=>'multipart/form-data']) !!}
                 <fieldset>
                     <div class="control-group">
                         <label class="control-label" for="typeahead">Blog Title </label>
@@ -43,6 +25,7 @@
                             <input value="<?php echo $blog_info->blog_id?>" type="hidden" class="span6 typeahead" id="typeahead"  data-provide="typeahead" data-items="4" name="blog_id">
                         </div>
                     </div>
+                    <input type="text" value="{{Auth::user()->id}}" name="user_id">
 
                     <div class="control-group">
                         <label class="control-label" for="selectError">Category</label>
@@ -91,5 +74,5 @@
 
     </div>
 
-
+    <link  href="{{asset('admin_asset/css/style.css')}}" rel="stylesheet">
 @endsection

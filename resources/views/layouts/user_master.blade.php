@@ -47,14 +47,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
-{{--auth end--}}
+    {{--auth end--}}
 </head>
 <body>
 <!-- header -->
 <div class="header">
     <div class="container">
         <div class="logo">
-           <h1> <a href="{{URL::to('/')}}"></a><strong><font color="black">ACE'S TECH BLOG</font></strong></h1>
+            <h1> <a href="{{URL::to('/')}}"></a><strong><font color="black">ACE'S TECH BLOG</font></strong></h1>
         </div>
 
         <div class="head-nav">
@@ -72,28 +72,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <li><a href="{{ route('register') }}">Register</a></li>
                 @else
 
-                <li>
+                    <li>
                         <a href="{{URL::to('/user_dashboard')}}">
                             {{ Auth::user()->name }}
                         </a>
-                </li>
+                    </li>
 
-                <li>
-                                <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
+                    <li>
+                        <a href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
+                            Logout
+                        </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                </li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
 
 
                 @endif
                 <div class="clearfix"></div>
-                    <!-- Authentication Links -->
+                <!-- Authentication Links -->
 
             </ul>
         </div>
@@ -106,8 +106,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             });
         </script>
-        <!-- script-for-nav -->
 
+        <!-- script-for-nav -->
+        <script type="text/javascript">
+            function check_delete() {
+                chk=confirm('Are you sure to delete this');
+                if(chk){
+
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+
+        </script>
 
 
         <div class="clearfix"> </div>
@@ -116,60 +129,87 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- header -->
 
 <!-- CONTENT -->
-<div class="container">
+<div class="container" style="background-color: whitesmoke">
 
-    <div class="col-md-9 bann-right">
+    <div class="col-md-9 bann-right" style="margin-top: 20px">
+        <div class="navbar navbar-inverse">
 
-    @yield('content')
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-inverse ">
+                    <li class="active"><a href="{{URL::to('/user_dashboard')}}">My Profile</a></li>
+                    <li><a href="{{URL::to('/add_user_blog')}}">Add New Blog</a></li>
+                    <li><a href="{{URL::to('/my_blogs/'.Auth::user()->id)}}">My Blogs</a></li>
+                    <li><a href="#contact">Edit Profile</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class=" user-wrapper">
+           @yield('user_content')
+
+        </div>
+
     </div>
 
-    <div class="col-md-3 bann-left">
-        @yield('side_bar')
+    <div class="col-md-3 bann-left" style="margin-top: 20px">
+        <div class="user-wrapper">
+            <img src="{{asset('images/1.jpg')}}" class="img-responsive" />
+            <div class="description">
+                <h4> Ramolin Leomarid</h4>
+                <h5> <strong> Website Designer </strong></h5>
+                <p>
+                    Pellentesque elementum dapibus convallis.
+                </p>
+                <hr />
+                <a href="#" class="btn btn-danger btn-sm"> <i class="fa fa-user-plus" ></i> &nbsp;Profile + </a>
+            </div>
+        </div>
     </div>
 
 </div>
 <!-- CONTENT -->
 
 
-    <div class="footer">
-        <div class="col-md-3 foot-1">
-            <h4>Quick Links</h4>
-            <ul>
-                <li><a href="#">||   Lorem Ipsum passage</a></li>
-                <li><a href="#">||   Finibus Bonorum et</a></li>
-                <li><a href="#">||   Treatise on the theory</a></li>
-            </ul>
-        </div>
-        <div class="col-md-3 foot-1">
-            <h4>Favorite Resources</h4>
-            <ul>
-                <li><a href="#">||   Characteristic words</a></li>
-                <li><a href="#">||   combined with a handful</a></li>
-                <li><a href="#">||   which looks reasonable</a></li>
-            </ul>
-        </div>
-        <div class="col-md-3 foot-1">
-            <h4>About Us</h4>
-            <ul>
-                <li><a href="#">||  Even slightly believable</a></li>
-                <li><a href="#">||  Hidden in the middle</a></li>
-                <li><a href="#">||  Ipsum therefore always</a></li>
-            </ul>
-        </div>
-        <div class="col-md-3 foot-1">
-            <h4>Custom Menu</h4>
-            <ul>
-                <li><a href="#">||  Internet tend to repeat</a></li>
-                <li><a href="#">||  Alteration in some form</a></li>
-                <li><a href="#">||  This book is a treatise</a></li>
-            </ul>
-        </div>
-
-        <div class="clearfix"> </div>
-        <div class="copyright">
-            <p>Copyrights © 2015 Voguish All rights reserved | Template by <a href="http://w3layouts.com/">W3layouts</a></p>
-        </div>
+<div class="footer">
+    <div class="col-md-3 foot-1">
+        <h4>Quick Links</h4>
+        <ul>
+            <li><a href="#">||   Lorem Ipsum passage</a></li>
+            <li><a href="#">||   Finibus Bonorum et</a></li>
+            <li><a href="#">||   Treatise on the theory</a></li>
+        </ul>
     </div>
+    <div class="col-md-3 foot-1">
+        <h4>Favorite Resources</h4>
+        <ul>
+            <li><a href="#">||   Characteristic words</a></li>
+            <li><a href="#">||   combined with a handful</a></li>
+            <li><a href="#">||   which looks reasonable</a></li>
+        </ul>
+    </div>
+    <div class="col-md-3 foot-1">
+        <h4>About Us</h4>
+        <ul>
+            <li><a href="#">||  Even slightly believable</a></li>
+            <li><a href="#">||  Hidden in the middle</a></li>
+            <li><a href="#">||  Ipsum therefore always</a></li>
+        </ul>
+    </div>
+    <div class="col-md-3 foot-1">
+        <h4>Custom Menu</h4>
+        <ul>
+            <li><a href="#">||  Internet tend to repeat</a></li>
+            <li><a href="#">||  Alteration in some form</a></li>
+            <li><a href="#">||  This book is a treatise</a></li>
+        </ul>
+    </div>
+
+    <div class="clearfix"> </div>
+    <div class="copyright">
+        <p>Copyrights © 2015 Voguish All rights reserved | Template by <a href="http://w3layouts.com/">W3layouts</a></p>
+    </div>
+</div>
 </div>
 
 

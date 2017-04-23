@@ -54,20 +54,21 @@ $popular_blog=DB::table('tbl_blog')
 
         <!-- nam-matis -->
 
-        <div class="nam-matis">
-            <h1 style="text-align :center">Popular Blogs</h1>
+        <div class="nam-matis" style="background-color: whitesmoke">
+            <h1 style="text-align :center; margin-bottom: 50px">Popular Blogs</h1>
 
             <div class="nam-matis-top">
-                <div class="container-fluid" style="margin-bottom: 100px">
+               <div class="container-fluid" style="margin-bottom: auto">
                 @foreach($popular_blog as $p_blog )
-                <div class="col-md-6 nam-matis-1">
+                <div class="col-lg-6" style="height: 350px">
 
                     <a href="{{URL::to('/blog_details/'.$p_blog->blog_id)}}"><img src="{{URL::to($p_blog->blog_image)}}"  alt="" height="200" width="200" class="img-circle" style="display: block; margin: auto"></a>
                     <h3 style="text-align :center"><a href="{{URL::to('/blog_details/'.$p_blog->blog_id)}}">{{$p_blog->blog_title}}</a></h3>
                 </div>
                 @endforeach
+                    <div class="clearfix"> </div>
                 </div>
-                <div class="clearfix"> </div>
+
 
             </div>
 

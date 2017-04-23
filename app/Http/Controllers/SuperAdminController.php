@@ -164,20 +164,23 @@ class SuperAdminController extends Controller
         }
     }
 
-    public function manage_blog()
+    public function manage_admin_blog()
     {
-        $blog_info=DB::table('tbl_blog')->get();
-        $manage_blog_content=view('admin_layouts.pages.manage_blog')->with('all_blog_info',$blog_info);
+        $blog_info=DB::table('tbl_blog')
+                    ->where('id',0)
+                    ->get();
+        $manage_blog_content=view('admin_layouts.pages.manage_admin_blog')->with('all_blog_info',$blog_info);
         return view('admin_layouts.admin_master')->with('admin_content',$manage_blog_content);
 
     }
+
 
     public function unpublish_blog($blog_id)
     {
         DB::table('tbl_blog')
             ->where('blog_id',$blog_id)
             ->update(['publication_status'=>0]);
-        return Redirect::to('/manage_blog');
+        return Redirect::to('/manage_admin_blog');
     }
 
     public function publish_blog($blog_id)
@@ -185,7 +188,7 @@ class SuperAdminController extends Controller
         DB::table('tbl_blog')
             ->where('blog_id',$blog_id)
             ->update(['publication_status'=>1]);
-        return Redirect::to('/manage_blog');
+        return Redirect::to('/manage_admin_blog');
     }
 
     public function delete_blog($blog_id)
@@ -193,7 +196,7 @@ class SuperAdminController extends Controller
         DB::table('tbl_blog')
             ->where('blog_id',$blog_id)
             ->delete();
-        return Redirect::to('/manage_blog');
+        return Redirect::to('/manage_admin_blog');
     }
 
     public function edit_blog($blog_id)
@@ -243,8 +246,44 @@ class SuperAdminController extends Controller
         }
 
         Session::put('message','Blog Updated');
-       return Redirect::to('/manage_blog');
+       return Redirect::to('/manage_admin_blog');
     }
+
+    /*user blogs manage*/
+    public function manage_user_blog()
+    {
+        $blog_info=DB::table('tbl_blog')
+            ->where('id','>','0')
+            ->get();
+        $manage_blog_content=view('admin_layouts.pages.manage_user_blog')->with('all_blog_info',$blog_info);
+        return view('admin_layouts.admin_master')->with('admin_content',$manage_blog_content);
+
+    }
+
+    public function unpublish_user_blog($blog_id)
+    {
+        DB::table('tbl_blog')
+            ->where('blog_id',$blog_id)
+            ->update(['publication_status'=>0]);
+        return Redirect::to('/manage_user_blog');
+    }
+
+    public function publish_user_blog($blog_id)
+    {
+        DB::table('tbl_blog')
+            ->where('blog_id',$blog_id)
+            ->update(['publication_status'=>1]);
+        return Redirect::to('/manage_user_blog');
+    }
+
+    public function delete_user_blog($blog_id)
+    {
+        DB::table('tbl_blog')
+            ->where('blog_id',$blog_id)
+            ->delete();
+        return Redirect::to('/manage_user_blog');
+    }
+    /*user blogs manage ends*/
     /*Blog section ends*/
 
     /*Comment ssection starts*/
