@@ -8,6 +8,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 
 class WelcomeController extends Controller
@@ -128,19 +129,29 @@ class WelcomeController extends Controller
 
 /*user part starts*/
 
-    public function user_dashboard()
+    public function user_dashboard($username)
     {
-        $user_dashboard_content=view('layouts.user_dashboard');
-        return view('layouts.user_master')->with('user_content',$user_dashboard_content);
+        $user_profile_info=DB::table('users')
+            ->where('username',$username)
+            ->first();
+        $user_sidebar_content=view('layouts.user_sidebar')->with('user_profile_info',$user_profile_info);
+        $user_dashboard_content=view('layouts.user_dashboard')->with('user_profile_info',$user_profile_info);
+        return view('layouts.user_master')
+            ->with('user_content',$user_dashboard_content)
+            ->with('user_sidebar_content',$user_sidebar_content);
     }
 
-    public function add_user_blog()
+    public function add_user_blog($username)
     {
         $category_info=DB::table('tbl_category')
             ->where('publication_status',1)
             ->get();
+        $user_profile_info=DB::table('users')
+            ->where('username',$username)
+            ->first();
+        $user_sidebar_content=view('layouts.user_sidebar')->with('user_profile_info',$user_profile_info);
         $user_blog_content=view('layouts.add_user_blog')->with('all_category_info',$category_info);
-        return view('layouts.user_master')->with('user_content',$user_blog_content);
+        return view('layouts.user_master')->with('user_content',$user_blog_content)->with('user_sidebar_content',$user_sidebar_content);
     }
 
 
@@ -178,13 +189,20 @@ class WelcomeController extends Controller
         }
     }
 
-    public function manage_user_blog($user_id)
+    public function manage_user_blog($username)
     {
         $blog_info=DB::table('tbl_blog')
-            ->where('id',$user_id)
+            ->join('users','tbl_blog.id','=','users.id')
+            ->select('users.username','tbl_blog.*')
+            ->where('username',$username)
             ->get();
+        $user_profile_info=DB::table('users')
+            ->where('username',$username)
+            ->first();
+        $user_sidebar_content=view('layouts.user_sidebar')->with('user_profile_info',$user_profile_info);
+//
         $manage_blog_content=view('layouts.manage_user_blog')->with('all_blog_info',$blog_info);
-        return view('layouts.user_master')->with('user_content',$manage_blog_content);
+        return view('layouts.user_master')->with('user_content',$manage_blog_content)->with('user_sidebar_content',$user_sidebar_content);
 
     }
 
@@ -204,6 +222,7 @@ class WelcomeController extends Controller
         $blog_info=DB::table('tbl_blog')
             ->where('blog_id',$blog_id)
             ->first();
+
         $edit_blog_content=view('layouts.edit_user_blog')
             ->with('blog_info',$blog_info)
             ->with('all_category_info',$category_info);
@@ -246,4 +265,56 @@ class WelcomeController extends Controller
         Session::put('message','Blog Updated');
         return Redirect::to('/my_blogs/'.$user_id);
     }
+
+    public function edit_user_profile($username)
+    {
+        $user_info=DB::table('users')
+            ->where('username',$username)
+            ->first();
+        $user_profile_info=DB::table('users')
+            ->where('username',$username)
+            ->first();
+        $user_sidebar_content=view('layouts.user_sidebar')->with('user_profile_info',$user_profile_info);
+        $edit_user_profile=view('layouts.edit_user_profile')
+            ->with('user_info',$user_info);
+        return view('layouts.user_master')->with('user_content',$edit_user_profile)->with('user_sidebar_content',$user_sidebar_content);
+    }
+
+    public function update_user_profile(Request $request)
+    {
+
+        $data=array();
+        $id=$request->id;
+        $username=$request->username;
+        $data['profession']=$request->profession;
+        $data['about_me']=$request->about_me;
+        $data['biography']=$request->biography;
+
+        $image=$request->file('profile_picture');
+        if($image){
+            $image_name=str_random(20);
+            $text=strtolower($image->getClientOriginalExtension());
+            $image_full_name=$image_name.'.'.$text;
+            $upload_path='user_profile_picture/';
+            $image_url=$upload_path.$image_full_name;
+            $success=$image->move($upload_path,$image_full_name);
+            if($success){
+                $data['profile_picture']=$image_url;
+                DB::table('users')
+                    ->where('id',$id)
+                    ->update($data);
+            }
+        }
+        else{
+            DB::table('users')
+                ->where('id',$id)
+                ->update($data);
+        }
+
+
+
+        Session::put('message','Profile Updated');
+        return Redirect::to('/profile/'.$username);
+    }
+
 }

@@ -54,7 +54,7 @@
                 <input type="hidden" value="{{$details_blog->blog_id}}" name="blog_id">
                 <input type="hidden" name="publication_status" value="0">
 
-                <input type="submit" value="Post Comment" style="background-color: #0a0c0e"  >
+                <input type="submit" value="Post Comment" style="background-color: #0a0c0e; margin-top: 20px"  >
 
                 {!! Form::close() !!}
             </div>
@@ -64,13 +64,14 @@
     </div>
     @endif
 
-        <div class="comment">
-            <h2>Comments</h2>
-        <div class="clearfix"> </div>
-        </div>
+
         <?php
         foreach ($published_comments as $p_comments){
         ?>
+        <div class="comment">
+            <h2>Comments</h2>
+            <div class="clearfix"> </div>
+        </div>
         <div class="blo-top" style="background-color: #FFFFFF">
             <p3>Comment by : <?php echo $p_comments->name ?></p3>
             <li style="margin-top: 20px; margin-bottom: 10px">Comment : <?php echo $p_comments->comments ?> </li>
@@ -78,5 +79,7 @@
         <?php
                 }
     ?>
+
+        <link  href="{{asset('admin_asset/css/jquery.cleditor.css')}}" rel="stylesheet">
 
 @endsection

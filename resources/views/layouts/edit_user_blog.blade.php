@@ -25,7 +25,7 @@
                             <input value="<?php echo $blog_info->blog_id?>" type="hidden" class="span6 typeahead" id="typeahead"  data-provide="typeahead" data-items="4" name="blog_id">
                         </div>
                     </div>
-                    <input type="text" value="{{Auth::user()->id}}" name="user_id">
+                    <input type="hidden" value="{{Auth::user()->id}}" name="user_id">
 
                     <div class="control-group">
                         <label class="control-label" for="selectError">Category</label>

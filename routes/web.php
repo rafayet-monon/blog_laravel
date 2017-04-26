@@ -24,9 +24,11 @@ Route::get('/contact','WelcomeController@contact');
 
 /*front end blog routes*/
 Route::get('/blog_by_category/{category_id}','WelcomeController@blog_by_category');
-Route::get('/add_user_blog','WelcomeController@add_user_blog');
+Route::get('/add_user_blog/{username}','WelcomeController@add_user_blog');
 Route::post('/save_user_blog','WelcomeController@save_user_blog');
-Route::get('/my_blogs/{user_id}','WelcomeController@manage_user_blog');
+Route::get('/my_blogs/{username}','WelcomeController@manage_user_blog');
+Route::get('/edit_profile/{username}','WelcomeController@edit_user_profile');
+Route::post('/update_user_profile','WelcomeController@update_user_profile');
 Route::get('/delete_user_blog_by_user/{blog_id}','WelcomeController@delete_user_blog_by_user');
 Route::get('/edit_user_blog/{blog_id}','WelcomeController@edit_user_blog');
 Route::post('/update_user_blog','WelcomeController@update_user_blog');
@@ -77,7 +79,7 @@ Route::get('/delete_user_blog/{blog_id}','SuperAdminController@delete_user_blog'
 /*auth routes */
 Auth::routes();
 Route::get('/home', 'WelcomeController@index');
-Route::get('/user_dashboard', 'WelcomeController@user_dashboard');
+Route::get('/profile/{username}', 'WelcomeController@user_dashboard');
 /*auth routes ends */
 
 /*comment routes */

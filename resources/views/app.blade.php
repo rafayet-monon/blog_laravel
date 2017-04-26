@@ -39,7 +39,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     {{--auth--}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
 
     <!-- Scripts -->
     <script>
@@ -73,10 +73,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 @else
 
                 <li>
-                        <a href="{{URL::to('/user_dashboard')}}">
+                        <a href="{{URL::to('/profile/'.Auth::user()->username)}}">
                             {{ Auth::user()->name }}
                         </a>
                 </li>
+
 
                 <li>
                                 <a href="{{ route('logout') }}"

@@ -6,9 +6,20 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
+
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
+
+                        {{--@if (count($errors) > 0)--}}
+                            {{--<div class="alert alert-danger">--}}
+                                {{--<ul>--}}
+                                    {{--@foreach ($errors->all() as $error)--}}
+                                        {{--<li>{{ $error }}</li>--}}
+                                    {{--@endforeach--}}
+                                {{--</ul>--}}
+                            {{--</div>--}}
+                        {{--@endif--}}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
@@ -23,6 +34,22 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">User Name</label>
+
+                            <div class="col-md-6">
+                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required >
+
+                                @if ($errors->has('username'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
@@ -68,6 +95,10 @@
                             </div>
                         </div>
                     </form>
+                    <div class="container-fluid" data-wow-delay="0.4s">
+                        <h3>Already have an account?</h3>
+                        <a class="acount-btn" href="{{ route('login') }}">Login</a>
+                    </div>
                 </div>
             </div>
         </div>

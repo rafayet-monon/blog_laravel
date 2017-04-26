@@ -39,7 +39,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     {{--auth--}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
 
     <!-- Scripts -->
     <script>
@@ -73,7 +73,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 @else
 
                     <li>
-                        <a href="{{URL::to('/user_dashboard')}}">
+                        <a href="{{URL::to('/profile/'.Auth::user()->username)}}">
                             {{ Auth::user()->name }}
                         </a>
                     </li>
@@ -132,14 +132,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container" style="background-color: whitesmoke">
 
     <div class="col-md-9 bann-right" style="margin-top: 20px">
+
         <div class="navbar navbar-inverse">
 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-inverse ">
-                    <li class="active"><a href="{{URL::to('/user_dashboard')}}">My Profile</a></li>
-                    <li><a href="{{URL::to('/add_user_blog')}}">Add New Blog</a></li>
-                    <li><a href="{{URL::to('/my_blogs/'.Auth::user()->id)}}">My Blogs</a></li>
-                    <li><a href="#contact">Edit Profile</a></li>
+                    <li class="active"><a href="{{URL::to('/profile/'.Auth::user()->username)}}">My Profile</a></li>
+                    <li><a href="{{URL::to('/add_user_blog/'.Auth::user()->username)}}">Add New Blog</a></li>
+                    <li><a href="{{URL::to('/my_blogs/'.Auth::user()->username)}}">My Blogs</a></li>
+                    <li><a href="{{URL::to('/edit_profile/'.Auth::user()->username)}}">Edit Profile</a></li>
                 </ul>
             </div>
 
@@ -153,18 +154,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 
     <div class="col-md-3 bann-left" style="margin-top: 20px">
-        <div class="user-wrapper">
-            <img src="{{asset('images/1.jpg')}}" class="img-responsive" />
-            <div class="description">
-                <h4> Ramolin Leomarid</h4>
-                <h5> <strong> Website Designer </strong></h5>
-                <p>
-                    Pellentesque elementum dapibus convallis.
-                </p>
-                <hr />
-                <a href="#" class="btn btn-danger btn-sm"> <i class="fa fa-user-plus" ></i> &nbsp;Profile + </a>
-            </div>
-        </div>
+       @yield('user_sidebar')
     </div>
 
 </div>
